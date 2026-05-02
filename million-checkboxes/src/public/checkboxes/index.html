@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>1 Million Checkboxes</title>
+    <link rel="stylesheet" href="/checkboxes/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <h1 class="title">1,000,000 Checkboxes</h1>
+        <div class="stats">
+          <span class="stat-item">
+            <span class="stat-label">Checked:</span>
+            <span class="stat-value" id="checkedCount">0</span>
+          </span>
+          <span class="stat-item">
+            <span class="stat-label">Progress:</span>
+            <span class="stat-value" id="progressPercent">0.00%</span>
+          </span>
+        </div>
+      </header>
+
+      <div class="viewport" id="viewport">
+        <div class="scroll-container" id="scrollContainer">
+          <div class="grid-container" id="gridContainer"></div>
+        </div>
+      </div>
+
+      <div class="chat"></div>
+
+      <div class="warning">Too many clicks at a time!</div>
+
+      <div class="non-visible" id="user"></div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/checkboxes/script.js"></script>
+  </body>
+</html>
