@@ -62,6 +62,7 @@ async function registerClient(
 
 async function verifyClient(clientID: string, redirectURL: string) {
   const client = await Client.findById(clientID);
+  console.log(client);
 
   if (!client || client.redirectURL !== redirectURL) {
     throw ApiError.badRequest("INVALID_CLIENT");

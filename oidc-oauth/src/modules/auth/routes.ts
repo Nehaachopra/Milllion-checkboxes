@@ -65,6 +65,7 @@ route.post("/client-details", async (req: Request, res: Response, next: NextFunc
 
 route.get("/o/authenticate", async (req: Request, res: Response, next: NextFunction) => {
   try {
+    console.log(req.query);
     const { client_id, redirect_url, state, scope } = req.query as {
       client_id?: string;
       redirect_url?: string;

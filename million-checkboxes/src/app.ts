@@ -32,9 +32,6 @@ app.get("/data", async (req, res) => {
 
 app.get("/", async (req, res) => {
   try {
-    clientID = process.env.CLIENT_ID!;
-    redirectURL = process.env.REDIRECT_URL!;
-
     const state = generateToken(16);
     const hashedState = generateHashedToken(state);
 
@@ -72,7 +69,6 @@ app.get("/callback", async (req, res) => {
       { state: hashedState },
       { code: hashedCode },
     );
-    console.log("session: ", session);
 
     if (!session) {
       return res.redirect("/error?type=auth");
@@ -91,7 +87,6 @@ app.get("/callback", async (req, res) => {
         nonce,
       }),
     });
-    console.log("Toekn response: ", tokenRes);
 
     if (!tokenRes.ok) {
       return res.redirect("/error?type=auth");
@@ -101,7 +96,6 @@ app.get("/callback", async (req, res) => {
     if (data.nonce !== nonce) {
       return res.redirect("/error?type=auth");
     }
-    console.log("/callback - data: ", data);
 
     const accessToken = data.accessToken;
     const refreshToken = data.refreshToken;
@@ -109,8 +103,6 @@ app.get("/callback", async (req, res) => {
     session.accessToken = accessToken;
     session.refreshToken = refreshToken;
     await session.save();
-
-    console.log("Updated session: ", session)
 
     res.cookie("sessionId", session._id, {
       httpOnly: true,
@@ -126,9 +118,7 @@ app.get("/callback", async (req, res) => {
 
 app.get("/me", async (req, res) => {
   try {
-    console.log(req);
     const sessionId = req.cookies.sessionId;
-    console.log("Session ID: ", sessionId);
 
     if (!sessionId) {
       return res.status(401).json({ message: "Unauthenticated" });
@@ -138,7 +128,6 @@ app.get("/me", async (req, res) => {
     if (!session) {
       return res.status(401).json({ message: "Invalid session" });
     }
-    console.log("Session: ", session);
 
     const accessToken = session.accessToken;
     const refreshToken = session.refreshToken;
@@ -149,7 +138,6 @@ app.get("/me", async (req, res) => {
         Authorization: `Bearer ${accessToken}`,
       },
     });
-    console.log("userRes: ", userRes);
 
     if (userRes.ok) {
       const userData = await userRes.json();
@@ -174,7 +162,6 @@ app.get("/me", async (req, res) => {
     }
 
     const data = await tokenRes.json();
-    console.log("Data:", data);
     if (data.nonce !== nonce) {
       return res.status(401).json({ message: "Invalid session" });
     }
@@ -185,8 +172,7 @@ app.get("/me", async (req, res) => {
         Authorization: `Bearer ${data.accessToken}`,
       },
     });
-    console.log("user res again:", userResAgain);
-
+    
     if (!userResAgain.ok) {
       return res.status(401).json({ message: "Invalid session" });
     }
