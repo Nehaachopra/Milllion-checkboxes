@@ -6,7 +6,12 @@ Million Checkboxes is a real-time web application that renders one million inter
 
 The application includes a custom-built OIDC OAuth authentication service. Upon signing in, Multiple users can interact with the system simultaneously, and all updates are synchronized in real time using WebSockets. Redis, running through a Valkey Docker container, is used for shared state management and pub-sub messaging across connected clients. It also notifies who clicked at what time adding more interactivity.
 
-!["sign-in"](./public/sign-in.png) !["checkboxes"](./public/checkboxes.png)
+<!-- !["sign-in"](./public/sign-in.png) !["checkboxes"](./public/checkboxes.png) -->
+
+<p style='justify-content:"center"; align-items:top;'>
+  <img src="./public/sign-in.png" width="30%" />
+  <img src="./public/checkboxes.png" width="65%" style="vertical-align: top;" />
+</p>
 
 ## Tech Stack
 
